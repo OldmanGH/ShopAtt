@@ -1,50 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Редактирование товара</title>
-</head>
-<body>
-<h3>Редактирование товара</h3>
-<form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
-    <label for="title">Введите наименование товара: </label>
-    <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
-    <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
-    <br>
-    <br>
-    <label for="description">Введите описание товара: </label>
-    <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
-    <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
-    <br>
-    <br>
-    <label for="price">Введите цену товара: </label>
-    <input type="number" th:field="*{price}" min="1" step="0.00" placeholder="Цена" id="price">
-    <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
-    <br>
-    <br>
-    <label for="warehouse">Введите cклад, на котором расположен товар: </label>
-    <input type="text" th:field="*{warehouse}" placeholder="Cклад" id="warehouse">
-    <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
-    <br>
-    <br>
-    <label for="category">Выберите категорию товара: </label>
-    <select name="category" th:field="*{category}" id="category">
-        <div th:each="element : ${category}">
-            <option th:text="${element.getName()}" th:value="${element.getId()}">
-        </div>
-    </select>
-    <div style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
-    <br>
-    <br>
-    <label for="seller">Введите данные о продавце: </label>
-    <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
-    <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
-    <br>
-    <br>
-    <div th:each="img : ${product.getImageList()}">
-        <img th:src="'/img/' + ${img.getFileName()}">
-    </div>
-    <input type="submit" value="Редактировать">
-</form>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>Редактирование товара</title>
+        <style>
+            a {
+                text-decoration: none;
+                color: #491600;
+                font-family: Calibri;
+            }
+            .header-a{
+                color: #ffffff;
+                font-family: Calibri;
+            }
+            .header{
+                margin: 0px;
+                box-shadow: 1px 5px 10px darkred;
+                border-radius: 5px;
+            }
+
+            .flex-box-row{
+                display: flex;
+                flex-direction: row;
+                align-items: end;
+
+            }
+            .flex-box-col{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-wrap: wrap;
+            }
+
+            .header-title{
+                font-family: Algerian;
+                margin: auto;
+                color: transparent;
+                -webkit-background-clip: text;
+                background-clip: text;
+                background-image: linear-gradient(to bottom, red, yellow);
+                font-size: 30px;
+            }
+
+            .header-button{
+                margin: 10px;
+            }
+
+            .button-header{
+                background: rgba(255, 0, 153, 0.51);
+                border: none;
+                border-radius: 5px;
+                box-shadow: 1px 1px 5px gray;
+                font-size: 16px;
+            }
+
+            .button-header:hover{
+                background: rgba(255, 0, 0, 0.7);
+                border: none;
+                border-radius: 5px;
+                box-shadow: 1px 1px 5px gray;
+                font-size: 16px;
+            }
+
+            .main{
+                font-family: Calibri;
+            }
+
+            .card{
+                width: 300px;
+                height: 400px;
+                border-radius: 15px;
+                box-shadow: 5px 5px 10px gray;
+                margin: 100px;
+                padding: 10px;
+                background: linear-gradient(to top left, rgba(255, 89, 158, 0.65), rgba(83, 162, 252, 0.53));
+            }
+
+            .footer{
+                background: rgba(128, 128, 128, 1);
+                width: 100%;
+                height: 100px;
+                padding: 25px;
+                border-top: 2px solid black;
+                position:fixed;
+                left:0px;
+                bottom:0px;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="flex-box-row">
+                <div class="header-title">
+                    <h1>Kids Store</h1>
+                </div>
+            </div>
+        </header>
+        <main class="main">
+            <h3>Редактирование товара</h3>
+            <form th:method="POST" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}" enctype="multipart/form-data">
+                <label for="title">Введите наименование товара: </label>
+                <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
+                <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                <br>
+                <br>
+                <label for="description">Введите описание товара: </label>
+                <textarea th:field="*{description}" placeholder="Описание" id="description"></textarea>
+                <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                <br>
+                <br>
+                <label for="price">Введите цену товара: </label>
+                <input type="number" th:field="*{price}" min="1" step="0.00" placeholder="Цена" id="price">
+                <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                <br>
+                <br>
+                <label for="warehouse">Введите cклад, на котором расположен товар: </label>
+                <input type="text" th:field="*{warehouse}" placeholder="Cклад" id="warehouse">
+                <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+                <br>
+                <br>
+                <label for="category">Выберите категорию товара: </label>
+                <select name="category" th:field="*{category}" id="category">
+                    <div th:each="element : ${category}">
+                        <option th:text="${element.getName()}" th:value="${element.getId()}">
+                    </div>
+                </select>
+                <div style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+                <br>
+                <br>
+                <label for="seller">Введите данные о продавце: </label>
+                <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
+                <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+                <br>
+                <br>
+                <div th:each="img : ${product.getImageList()}">
+                    <img th:src="'/img/' + ${img.getFileName()}">
+                </div>
+                <input type="submit" value="Редактировать">
+            </form>
+        </main>
+        <footer class="footer">
+            <div>
+                <div>
+                    <p>&copy; 2023 All Rights <b>Not</b> Reserved</p>
+                </div>
+            </div>
+        </footer>
+    </body>
 </html>
